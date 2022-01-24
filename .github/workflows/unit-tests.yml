@@ -10,7 +10,7 @@ jobs:
     #   FOO : foobar-${{ github.sha }}
     steps:
       - uses: actions/checkout@v2
-      - name: Create Branch
+      - name: Create Branc
         run: |
          git branch $(date +%s)
          git push origin $(date +%s)
