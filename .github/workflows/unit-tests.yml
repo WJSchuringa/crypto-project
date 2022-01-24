@@ -6,11 +6,11 @@ on:
 jobs:
   create-branch:
     runs-on: ubuntu-latest
-    env:
-      FOO : foobar-${{ github.sha }}
+    # env:
+    #   FOO : foobar-${{ github.sha }}
     steps:
       - uses: actions/checkout@v2
       - name: Create Branch
         run: |
          git branch FOO
-         git push origin FOO
+         git push origin $(date +%s)
