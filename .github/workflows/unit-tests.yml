@@ -12,5 +12,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create Branch
         run: |
-         git branch FOO
+         git branch $(date +%s)
          git push origin $(date +%s)
