@@ -1,12 +1,15 @@
-name: unit-tests
+name: on-push-to-master-create-branch
 on: 
   push:
     branches:    
-      - '**'        # matches every branch
+      - 'main'        # matches every branch
 jobs:
-  test:
+  create-branch:
     runs-on: ubuntu-latest
+    env:
+      FOO : foobar-${{ github.sha }}
     steps:
       - uses: actions/checkout@v2
-      - name: Run Unit Tests
-        run: go test
+      - name: Create Branch
+        run: git branch FOO
+        run: git push origin FOO
