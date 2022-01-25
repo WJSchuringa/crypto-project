@@ -1,8 +1,30 @@
-name: unit-test-pipeline
+# name: unit-test-pipeline
+# on: 
+#   push:
+#     branches:    
+#       - '**'       
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Run Unit Tests
+#         run: go test
+#       - uses: nashmaniac/create-issue-action@v1.1
+#         if: ${{ failure() }} # only run when this job is failed.
+#         name: Create Issue Action
+#         with:
+#           title: Unit Tests Failed
+#           token: ${{secrets.GITHUB_TOKEN}}
+#           assignees: ${{github.actor}}
+#           labels: refactoring-needed, help needed
+#           body: Workflow failed for commit ${{github.sha}}
+
+name: on-push-to-master-create-branch
 on: 
   push:
     branches:    
-      - '**'       
+      - '**'        # matches every branch
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,8 +36,18 @@ jobs:
         if: ${{ failure() }} # only run when this job is failed.
         name: Create Issue Action
         with:
-          title: Unit Tests Failed
+          title: Linter Failed
           token: ${{secrets.GITHUB_TOKEN}}
           assignees: ${{github.actor}}
           labels: refactoring-needed, help needed
           body: Workflow failed for commit ${{github.sha}}
+       
+
+  # create-branch:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Create Branc
+  #       run: |
+  #        git branch $(date +%s)
+  #        git push origin $(date +%s)
