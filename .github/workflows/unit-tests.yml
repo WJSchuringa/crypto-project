@@ -19,8 +19,6 @@ jobs:
           assignees: ${{github.actor}}
           labels: bug, refactoring-needed
           body: Workflow failed for commit ${{github.sha}}
-      - uses: JasonEtco/create-an-aissue@v2
-        title: Someone just pushed
-        assignees: {{ payload.sender.origin }}
-        labels: bug, enhancement
-        body: Someone just pushed, oh no! Here's who did it":" {{ payload.sender.origin }}
+      - uses: JasonEtco/create-an-issue@v2
+        with: 
+          filename: .github/blame-template.md
