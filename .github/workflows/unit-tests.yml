@@ -1,8 +1,8 @@
-name: on-push-to-master-create-branch
+name: unit-test-pipeline
 on: 
   push:
     branches:    
-      - '**'        # matches every branch
+      - '**'       
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,18 +14,13 @@ jobs:
         if: ${{ failure() }} # only run when this job is failed.
         name: Create Issue Action
         with:
-          title: Linter Failed
+          title: Unit Tests Failed
           token: ${{secrets.GITHUB_TOKEN}}
           assignees: ${{github.actor}}
-          labels: refactoring-needed, help needed
+          labels: bug, refactoring-needed
           body: Workflow failed for commit ${{github.sha}}
-       
-
-  # create-branch:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Create Branc
-  #       run: |
-  #        git branch $(date +%s)
-  #        git push origin $(date +%s)
+      - uses: JasonEtco/create-an-aissue@v2
+        title: Someone just pushed
+        assignees: {{ payload.sender.origin }}
+        labels: bug, enhancement
+        body: Someone just pushed, oh no! Here's who did it":" {{ payload.sender.origin }}
