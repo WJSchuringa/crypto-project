@@ -17,8 +17,5 @@ jobs:
           title: Unit Tests Failed
           token: ${{secrets.GITHUB_TOKEN}}
           assignees: ${{github.actor}}
-          labels: bug, refactoring-needed
+          labels: refactoring-needed, help needed
           body: Workflow failed for commit ${{github.sha}}
-      - uses: JasonEtco/create-an-issue@v2
-        with: 
-          filename: .github/blame-template.md
