@@ -15,7 +15,7 @@ jobs:
         name: Create Issue Action
         with:
           title: Linter Failed
-          token: ${{secrets.TOKEN}}
+          token: ${{secrets.GITHUB_TOKEN}}
           assignees: ${{github.actor}}
           labels: refactoring-needed, help needed
           body: Workflow failed for commit ${{github.sha}}
