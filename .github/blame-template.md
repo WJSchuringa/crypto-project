@@ -3,7 +3,7 @@ title: Someone just ${{tools.context.event}}
 labels: bug, enhancement
 ---
 
-{{tools.context.actor}} just {{tools.context.event}}:
+ just {{payload.sender.login}}
 
 {{tools.context.payload}}
 
