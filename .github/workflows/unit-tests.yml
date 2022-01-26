@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run Unit ${{tools.context.actor}
+      - name: Run Unit ${{tools.context.actor}}
         run: go test
      # - uses: nashmaniac/create-issue-action@v1.1
         if: ${{ failure() }} # only run when this job is failed.
