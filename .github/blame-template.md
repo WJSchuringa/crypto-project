@@ -1,5 +1,10 @@
 ---
-title: Someone just pushed
+title: Someone just ${{tools.context.event}}
 labels: bug, enhancement
 ---
-Someone just pushed, oh no! Here's who did it: {{ payload.sender.login }} {{github.sha}}.
+
+{{tools.context.actor}} just {{tools.context.event}}:
+
+{{tools.context.payload}}
+
+Commit: {{tools.context.sha}}
