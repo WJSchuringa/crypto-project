@@ -15,11 +15,10 @@ jobs:
         name: Create Issue Action
         with:
           title: Linter Failed
-          token: ${{secrets.GITHUB_TOKEN}}
+          token: ${{secrets.TOKEN}}
           assignees: ${{github.actor}}
           labels: refactoring-needed, help needed
           body: Workflow failed for commit ${{github.sha}}
-        if: ${{ failure() }} # only run when this job is failed.
       - uses: JasonEtco/create-an-issue@v2
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
