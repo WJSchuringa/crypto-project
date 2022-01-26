@@ -23,10 +23,19 @@ jobs:
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          assignees: {{ payload.sender.login }}
+          assignees: ${{ payload.sender.login }}
           filename: .github/blame-template.md
-
-
+  test2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nashmaniac/create-issue-action@v1.1
+      name: Create Issue Action
+      with:
+        title: Build Failed
+        token: ${{secrets.GITHUB_TOKEN}}
+        assignees: ${{github.actor}}
+        labels: worflow-failed
+        body: Workflow failed for commit ${{github.sha}}
 
 
   # create-branch:
