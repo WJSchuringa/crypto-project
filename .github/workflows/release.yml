@@ -1,10 +1,27 @@
 name: Release - Test, Build & Redeploy
 
+# on:
+#   push:
+#     branches:
+#       main
+#       #- 'release-*'
 on:
+  schedule:
+    - cron: '20 9 * * *'
   push:
-    branches:
-      main
-      #- 'release-*'
+    branches: [ main ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ main ]
+
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
 
 jobs:
   # test:
@@ -21,6 +38,15 @@ jobs:
   #       run: mvn -B clean package -DskipTests
   #     - name: Maven Verify
   #       run: mvn -B clean verify
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+
 
   docker:
     name: Publish - Docker Hub
