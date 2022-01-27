@@ -1,5 +1,7 @@
 name: unit-test-pipeline
 on: 
+  pull_request:
+  merge:
   push:
     branches:    
       - '**'       
@@ -89,6 +91,12 @@ jobs:
           column-name: triage
           issue-number: ${{ steps.create-issue.outputs.number }}
 
+      - name: Create Branch
+        uses: actions/checkout@v2
+        run: |
+         git branch fix/${{GITHUB_SHA}}
+         git push origin fix/${{GITHUB_SHA}}
+
   # test2:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -105,8 +113,3 @@ jobs:
   # create-branch:
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Create Branc
-  #       run: |
-  #        git branch $(date +%s)
-  #        git push origin $(date +%s)
