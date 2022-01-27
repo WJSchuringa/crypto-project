@@ -9,9 +9,32 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run Unit Tests
-        id: unit_tests
-        run: go test
+      # Install Go on the VM running the action.
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      # Install gotestfmt on the VM running the action.
+      - name: Set up gotestfmt
+        uses: haveyoudebuggedit/gotestfmt-action@v2
+        with:
+          # Optional: pass GITHUB_TOKEN to avoid rate limiting.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Alternatively, install using go install
+      - name: Set up gotestfmt
+        run: go install github.com/haveyoudebuggedit/gotestfmt/v2/cmd/gotestfmt@latest
+
+      # Run tests with nice formatting. Save the original log in /tmp/gotest.log
+      - name: Run tests
+        run: |
+          set -euo pipefail
+          go test -json -v ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
+
+      # - name: Run Unit Tests
+      #   id: unit_tests
+      #   run: go test
   
   aftercare:
     runs-on: ubuntu-latest
