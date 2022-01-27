@@ -3,7 +3,10 @@ on:
   pull_request:
   push:
     branches:    
-      - '**'       
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'   
+      - '!main'   # excludes master    
 jobs:
   unittests:
     name: Unit Tests
@@ -45,16 +48,6 @@ jobs:
           name: test-log
           path: /tmp/gotest.log
           if-no-files-found: error
-
-  # unittests:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: Run Unit Tests
-  #       id: unit_tests
-  #       run: go test
-  
 
   aftercare:
     name: run-if-failed
