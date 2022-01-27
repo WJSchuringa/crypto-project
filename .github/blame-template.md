@@ -7,8 +7,6 @@ A {{ env.EVENT }} to branch {{ env.BRANCH }} in {{ env.REPOSITORY }} by {{ env.A
 
 Commit: {{ env.GITHUB_SHA }}
 
-{{ env.EVENT2 }}
-
 {{ env.GITHUB_ACTION_REPOSITORY }}
 
 {{ env.ACTOR }} has been assigned to fix this issue. 
