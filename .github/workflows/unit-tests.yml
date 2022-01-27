@@ -8,17 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run Unit ${{ payload.sender.login }}
+      - name: Run Unit  Tests
         run: go test
-     # - uses: nashmaniac/create-issue-action@v1.1
-        if: ${{ failure() }} # only run when this job is failed.
-      #  name: Create Issue Action
-        # with:
-        #   title: Linter Failed
-        #   token: ${{secrets.GITHUB_TOKEN}}
-        #   assignees: ${{github.actor}}
-        #   labels: refactoring-needed, help needed
-        #   body: Workflow failed for commit ${{github.sha}}
+        if: ${{ failure() }}
       - uses: JasonEtco/create-an-issue@v2
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
