@@ -5,27 +5,26 @@ on:
       - '**'       
 jobs:
   test:
-    test2:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Run Unit  Tests
-          run: go test
-          
-          if: ${{ failure() }}
-        - uses: JasonEtco/create-an-issue@v2
-          env:
-          #https://docs.github.com/en/actions/learn-github-actions/contexts#runner-context
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            GITHUB_SHA: ${{github.sha}}
-            ACTOR: ${{github.actor}}
-            REPOSITORY: ${{github.repository}}
-            BRANCH: ${{github.ref_name}}
-            EVENT: ${{github.event_name}}
-            WORKFLOW: ${{github.workflow}}
-          with:
-            assignees: ${{env.ACTOR}}
-            filename: .github/blame-template.md
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Unit  Tests
+        run: go test
+
+      - uses: JasonEtco/create-an-issue@v2
+        if: ${{ failure() }}
+        env:
+        #https://docs.github.com/en/actions/learn-github-actions/contexts#runner-context
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_SHA: ${{github.sha}}
+          ACTOR: ${{github.actor}}
+          REPOSITORY: ${{github.repository}}
+          BRANCH: ${{github.ref_name}}
+          EVENT: ${{github.event_name}}
+          WORKFLOW: ${{github.workflow}}
+        with:
+          assignees: ${{env.ACTOR}}
+          filename: .github/blame-template.md
 
   # test2:
   #   runs-on: ubuntu-latest
