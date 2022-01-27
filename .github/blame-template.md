@@ -1,5 +1,5 @@
 ---
-title: Workflow {{ env.WORKFLOW }} failed on 
+title: Workflow {{ env.WORKFLOW }} failed on {{ env.EVENT }} to {{ env.BRANCH }} in {{ env.REPOSITORY }}
 labels: bug, enhancement
 ---
 
