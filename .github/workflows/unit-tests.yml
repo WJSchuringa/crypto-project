@@ -15,6 +15,7 @@ jobs:
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          GITHUB_SHA: ${{github.sha}}
+         ASSIGNEE: ${{github.actor}}
         with:
           filename: .github/blame-template.md
   
