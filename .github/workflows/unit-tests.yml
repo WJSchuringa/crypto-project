@@ -65,6 +65,7 @@ jobs:
 
       - uses: JasonEtco/create-an-issue@v2
         name: Create Issue If Previous Failed
+        id: create-issue
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_SHA: ${{github.sha}}
@@ -77,6 +78,13 @@ jobs:
         with:
           assignees: ${{env.ACTOR}}
           filename: .github/blame-template.md
+
+      - name: Create or Update Project Card
+        uses: peter-evans/create-or-update-project-card@v1
+        with:
+          project-name: test
+          column-name: triage
+          issue-number: ${{ steps.create-issue.outputs.number }}
 
   # test2:
   #   runs-on: ubuntu-latest
