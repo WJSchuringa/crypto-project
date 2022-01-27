@@ -14,6 +14,7 @@ jobs:
       - uses: JasonEtco/create-an-issue@v2
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         GITHUB_SHA: ${{github.sha}}
         with:
           filename: .github/blame-template.md
   
