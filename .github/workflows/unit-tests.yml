@@ -18,11 +18,14 @@ jobs:
     needs: unittests
     if: always() && (needs.unittests.result == 'failure')
     steps:
+      - uses: actions/checkout@v2
+
       - uses: JasonEtco/create-an-issue@v2
         name: Create Issue If Previous Failed
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_SHA: ${{github.sha}}
+          GITHUB_ACTION_REPOSITORY: ${{github.action_repository}}
           ACTOR: ${{github.actor}}
           REPOSITORY: ${{github.repository}}
           BRANCH: ${{github.ref_name}}
