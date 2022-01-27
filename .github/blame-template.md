@@ -9,9 +9,8 @@ This happened in commit: {{ env.GITHUB_SHA }}
 {{ env.ACTOR }} has been assigned to fix this issue. 
 
 
-[Failed Run](https://github.com/{{ github.repository }}/actions/runs/{{ github.run_id }})
-[Failed Run](https://github.com/{{ env.REPOSITORY }}/actions/runs/{{ github.run_id }})
-[Codebase](https://github.com/${{ github.repository }}/tree/${{ github.sha }})
-Workflow name - ${{ github.workflow }}
-Job -           ${{ github.job }}
-status -        ${{ job.status }}
+[Failed Run](https://github.com/{{ env.REPOSITORY }}/actions/runs/{{ env.RUN_ID }})
+[Codebase](https://github.com/{{env.REPOSITORY}}/tree/{{ env.SHA }})
+Workflow name - ${{ env.WORKFLOW }}
+Job -           ${{ env.JOB }}
+status -        ${{ env.STATUS }}
