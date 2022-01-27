@@ -39,6 +39,8 @@ jobs:
   #     - name: Maven Verify
   #       run: mvn -B clean verify
 
+  docker:
+    name: Publish - Docker Hub
   runs-on: ubuntu-latest
   permissions:
     contents: read
@@ -46,11 +48,6 @@ jobs:
     # This is used to complete the identity challenge
     # with sigstore/fulcio when running outside of PRs.
     id-token: write
-
-  docker:
-    name: Publish - Docker Hub
-    runs-on: ubuntu-18.04
-    # needs: [test]
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
     steps:
