@@ -4,10 +4,14 @@ on:
     branches:    
       - '**'       
 jobs:
-  unittests:
+
+  build:
+    name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      # Checkout your project with git
+      - name: Checkout
+        uses: actions/checkout@v2
 
       # Install Go on the VM running the action.
       - name: Set up Go
@@ -21,13 +25,17 @@ jobs:
         with:
           # Optional: pass GITHUB_TOKEN to avoid rate limiting.
           token: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: pass the gotestfmt version you want to run. 
+          version: v2.0.0
+          # Optional: pass an organization name and repo to use a fork
+          org: haveyoudebuggedit
+          repo: gotestfmt
 
       # Run tests with nice formatting. Save the original log in /tmp/gotest.log
-      - name: Run test
+      - name: Run tests
         run: |
           set -euo pipefail
           go test -json -v ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
-
 
       # Upload the original go test log as an artifact for later review.
       - name: Upload test log
@@ -38,10 +46,11 @@ jobs:
           path: /tmp/gotest.log
           if-no-files-found: error
 
-      # - name: Run Unit Tests
-      #   id: unit_tests
-      #   run: go test
-  
+  unittests:
+    - name: Run Unit Tests
+      id: unit_tests
+      run: go test
+
   aftercare:
     runs-on: ubuntu-latest
     needs: unittests
