@@ -11,3 +11,9 @@ Commit: {{ env.GITHUB_SHA }}
 
 {{ env.ACTOR }} has been assigned to fix this issue. 
 
+
+[Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+[Codebase](https://github.com/${{ github.repository }}/tree/${{ github.sha }})
+Workflow name - ${{ github.workflow }}
+Job -           ${{ github.job }}
+status -        ${{ job.status }}
