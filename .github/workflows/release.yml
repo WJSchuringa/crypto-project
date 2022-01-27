@@ -3,7 +3,8 @@ name: Release - Test, Build & Redeploy
 on:
   push:
     branches:
-      - 'release-*'
+      main
+      #- 'release-*'
 
 jobs:
   # test:
