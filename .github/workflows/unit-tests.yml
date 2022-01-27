@@ -1,7 +1,6 @@
 name: unit-test-pipeline
 on: 
   pull_request:
-  merge:
   push:
     branches:    
       - '**'       
