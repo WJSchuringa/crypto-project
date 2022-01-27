@@ -9,4 +9,10 @@ labels: bug, enhancement
 
 A {{ env.EVENT }} to branch {{ env.BRANCH }} in {{ env.REPOSITORY }} by {{ env.ACTOR }} had workflow {{ env.WORKFLOW }} fail as a result.
 
+A branch has been created:
+
+```
+git checkout fix/{{env.GITHUB_SHA}}
+```
+
 {{ env.ACTOR }} has been assigned to fix this issue. Good luck!
