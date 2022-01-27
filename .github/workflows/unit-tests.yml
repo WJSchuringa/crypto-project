@@ -4,6 +4,12 @@ on:
     branches:    
       - '**'       
 jobs:
+  unittests:
+    - uses: actions/checkout@v2
+    - name: Run Unit Tests
+      id: unit_tests
+      run: go test
+
   aftercare:
     runs-on: ubuntu-latest
     needs: unittests
