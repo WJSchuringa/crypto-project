@@ -5,10 +5,14 @@ on:
       - '**'       
 jobs:
   unittests:
-    - uses: actions/checkout@v2
-    - name: Run Unit Tests
-      id: unit_tests
-      run: go test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Unit Tests
+        id: unit_tests
+        run: go test
+  
 
   aftercare:
     runs-on: ubuntu-latest
