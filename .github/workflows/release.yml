@@ -24,23 +24,50 @@ env:
 
 
 jobs:
-  # test:
-  #   name: Test - Unit & Integration
-  #   runs-on: ubuntu-18.04
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout your project with git
+      - name: Checkout
+        uses: actions/checkout@v2
 
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - name: Set up JDK 11
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: 11.0.4
-  #     - name: Maven Package
-  #       run: mvn -B clean package -DskipTests
-  #     - name: Maven Verify
-  #       run: mvn -B clean verify
+      # Install Go on the VM running the action.
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      # Install gotestfmt on the VM running the action.
+      - name: Set up gotestfmt
+        uses: haveyoudebuggedit/gotestfmt-action@v2
+        with:
+          # Optional: pass GITHUB_TOKEN to avoid rate limiting.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: pass the gotestfmt version you want to run. 
+          version: v2.0.0
+          # Optional: pass an organization name and repo to use a fork
+          org: haveyoudebuggedit
+          repo: gotestfmt
+
+      # Run tests with nice formatting. Save the original log in /tmp/gotest.log
+      - name: Run tests
+        run: |
+          set -euo pipefail
+          go test -json -v ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
+
+      # Upload the original go test log as an artifact for later review.
+      - name: Upload test log
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: test-log
+          path: /tmp/gotest.log
+          if-no-files-found: error
 
   docker:
     name: Publish - Docker Hub
+    needs: [test]
     runs-on: ubuntu-latest
     permissions:
       contents: read
