@@ -90,8 +90,8 @@ jobs:
           column-name: triage
           issue-number: ${{ steps.create-issue.outputs.number }}
 
+      - uses: actions/checkout@v2
       - name: Create Branch
-        uses: actions/checkout@v2
         run: |
          git branch fix/${{GITHUB_SHA}}
          git push origin fix/${{GITHUB_SHA}}
