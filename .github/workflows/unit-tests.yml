@@ -16,12 +16,13 @@ jobs:
         #https://docs.github.com/en/actions/learn-github-actions/contexts#runner-context
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          GITHUB_SHA: ${{github.sha}}
-         ASSIGNEE: ${{github.actor}}
+         ACTOR: ${{github.actor}}
          REPOSITORY: ${{github.repository}}
          BRANCH: ${{github.ref_name}}
          EVENT: ${{github.event_name}}
          WORKFLOW: ${{github.workflow}}
         with:
+          assignees: ${{env.ACTOR}}
           filename: .github/blame-template.md
   
   # test2:

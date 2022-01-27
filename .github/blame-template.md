@@ -1,6 +1,5 @@
 ---
 title: Someone just {{ env.GITHUB_SHA }}
-assignee: ${{ env.ASSIGNEE }}
 labels: bug, enhancement
 ---
 
