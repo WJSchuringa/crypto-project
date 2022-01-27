@@ -93,8 +93,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create Branch
         run: |
-         git branch "fix/${{env.GITHUB_SHA}}"
-         git push origin "fix/${{env.GITHUB_SHA}}"
+         git branch fix/$GITHUB_SHA
+         git push origin fix/$GITHUB_SHA
 
   # test2:
   #   runs-on: ubuntu-latest
