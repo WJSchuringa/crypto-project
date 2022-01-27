@@ -25,11 +25,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_SHA: ${{github.sha}}
-          GITHUB_ACTION_REPOSITORY: ${{github.action_repository}}
+          GITHUB_ACTION_REPOSITORY: ${{github.event_path}}
           ACTOR: ${{github.actor}}
           REPOSITORY: ${{github.repository}}
           BRANCH: ${{github.ref_name}}
           EVENT: ${{github.event_name}}
+          EVENT2: ${{github.event}}
           WORKFLOW: ${{github.workflow}}
         with:
           assignees: ${{env.ACTOR}}
